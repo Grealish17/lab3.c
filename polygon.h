@@ -18,7 +18,7 @@ namespace PLGN{
 
         Polygon();
 
-        Polygon(float x, float y);
+        Polygon(Vertex v);
 
         Polygon(int n, Vertex * vertex);
 
@@ -31,8 +31,6 @@ namespace PLGN{
         friend Polygon operator+(const Polygon& p1, const Polygon& p2);
 
         friend Polygon& operator+=(Polygon& p1, const Polygon& p2);
-
-        friend Polygon& operator+=(Polygon& p1, const Vertex& v);
 
         void rotate(float x0, float y0, int fi);
 

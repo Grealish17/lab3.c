@@ -11,11 +11,10 @@ namespace PLGN{
         vertex = new Vertex[0];
     }
 
-    Polygon::Polygon(float x, float y){
+    Polygon::Polygon(Vertex v){
         n = 1;
         vertex = new Vertex[1];
-        vertex[0].x = x;
-        vertex[0].y = y;
+        vertex[0] = v;
     }
 
     Polygon::Polygon(int n, Vertex * vertex){
@@ -55,26 +54,13 @@ namespace PLGN{
     }
 
     Polygon& operator+=(Polygon& p1, const Polygon& p2){
-        Vertex ver[p1.n];
+        Vertex* p = p1.vertex;
         int n = p1.n;
-        memcpy(ver, p1.vertex, n*sizeof(Vertex));
-        p1.~Polygon();
         p1.vertex = new Vertex[n + p2.n];
-        memcpy(p1.vertex, ver, n*sizeof(Vertex));
+        memcpy(p1.vertex, p, n*sizeof(Vertex));
         memcpy(p1.vertex + n, p2.vertex, p2.n*sizeof(Vertex));
         p1.n = n + p2.n;
-        return p1;
-    }
-
-    Polygon& operator+=(Polygon& p1, const Vertex& v){
-        Vertex ver[p1.n];
-        int n = p1.n;
-        memcpy(ver, p1.vertex, p1.n*sizeof(Vertex));
-        p1.~Polygon();
-        p1.vertex = new Vertex[n + 1];
-        memcpy(p1.vertex, ver, n*sizeof(Vertex));
-        p1.vertex[n] = v;
-        p1.n = n + 1;
+        delete[] p;
         return p1;
     }
 
@@ -112,7 +98,7 @@ namespace PLGN{
             }
         }
         else{
-            throw std::invalid_argument("Array overflow");
+            throw std::invalid_argument("Incorrect data");
         }
     }
 
