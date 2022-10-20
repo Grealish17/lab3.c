@@ -23,6 +23,20 @@ namespace PLGN{
         memcpy(this->vertex, vertex, n*sizeof(Vertex));
     }
 
+    Polygon::Polygon(const Polygon & polygon)
+    : n(polygon.n)
+    , vertex(new Vertex[polygon.n])
+    {
+        std::copy(polygon.vertex, polygon.vertex + n, vertex);
+    }
+
+    Polygon::Polygon(Polygon&& polygon) noexcept{
+        n = polygon.n;
+        this->vertex = polygon.vertex;
+        polygon.n = 0;
+        polygon.vertex = nullptr;
+    }
+
     Polygon::~Polygon(){
         n = 0;
         delete[] vertex;
@@ -33,6 +47,17 @@ namespace PLGN{
         n = data_n;
         this->vertex = new Vertex[n];
         memcpy(vertex, data_vertex, n*sizeof(Vertex));
+    }
+
+    Polygon& Polygon::operator=(Polygon&& polygon) noexcept{
+        if(this != &polygon){
+            this->~Polygon();
+            n = polygon.n;
+            this->vertex = polygon.vertex;
+            polygon.n = 0;
+            polygon.vertex = nullptr;
+        }
+        return *this;
     }
 
     Vertex Polygon::operator[](int i) const{

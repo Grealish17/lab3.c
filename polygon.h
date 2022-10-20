@@ -22,11 +22,17 @@ namespace PLGN{
 
         Polygon(int n, Vertex * vertex);
 
+        Polygon(const Polygon & polygon);
+
+        Polygon(Polygon&& polygon) noexcept;
+
         ~Polygon();
 
         void set_coordinates(int data_n, Vertex * data_vertex);
 
         Vertex operator[](int i) const;
+
+        Polygon& operator=(Polygon&& polygon) noexcept;
 
         friend Polygon operator+(const Polygon& p1, const Polygon& p2);
 
