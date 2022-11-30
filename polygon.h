@@ -34,6 +34,8 @@ namespace PLGN{
 
         Polygon& operator=(Polygon&& polygon) noexcept;
 
+        Polygon& operator=(const Polygon& polygon);
+
         friend Polygon operator+(const Polygon& p1, const Polygon& p2);
 
         friend Polygon& operator+=(Polygon& p1, const Polygon& p2);

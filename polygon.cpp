@@ -60,6 +60,16 @@ namespace PLGN{
         return *this;
     }
 
+    Polygon& Polygon::operator=(const Polygon& polygon){
+        if(this != &polygon){
+            this->~Polygon();
+            n = polygon.n;
+            this->vertex = new Vertex[n];
+            std::copy(polygon.vertex, polygon.vertex + n, vertex);
+        }
+        return *this;
+    }
+
     Vertex Polygon::operator[](int i) const{
         if(i < n && i >= 0){
             return vertex[i];
